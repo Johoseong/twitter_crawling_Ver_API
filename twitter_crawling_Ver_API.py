@@ -17,7 +17,7 @@ class Crawling:
 
         # Optional params: start_time,end_time,since_id,until_id,max_results,next_token,
         # expansions,tweet.fields,media.fields,poll.fields,place.fields,user.fields
-        self.query_params = {'query': 'baclofen', 'tweet.fields': 'created_at', 'start_time': '2020-01-01T00:00:00Z',
+        self.query_params = {'query': '', 'tweet.fields': 'created_at', 'start_time': '2020-01-01T00:00:00Z',
                         'end_time': '2021-01-01T00:00:00Z', 'max_results': '500'}
 
     def create_headers(self):
@@ -26,17 +26,30 @@ class Crawling:
 
     def connect_to_endpoint(self, headers):
         response = requests.request("GET", self.search_url, headers=headers, params=self.query_params)
-        print(response.status_code)
+        # print(response.status_code)
         if response.status_code != 200:
             raise Exception(response.status_code, response.text)
         return response.json()
 
-    def main_act(self):
+    def main_act(self, brand_list, drug_name):
+        fw = open(drug_name + " " + self.query_params['start_time'][0:10] + "~" + self.query_params['end_time'][0:10] + ".txt", "w")
+        for brand_name in brand_list:
+            self.query_params['query'] = brand_name
+            # print(self.query_params)
+            self.crawling_part(fw)
+
+    def crawling_part(self, fw):
         headers = self.create_headers()
         json_response = self.connect_to_endpoint(headers)
         data = json.dumps(json_response, indent=4, sort_keys=True)
-        print(data)
-        self.query_params['next_token'] = json_response['meta']['next_token']
+        fw.write(data)
+        try:
+            self.query_params['next_token'] = json_response['meta']['next_token']
+        except Exception as e:
+            print(self.query_params['query'] + " done")
+            # print(e)
+            time.sleep(2)
+            return
         time.sleep(2)
-        self.main_act()
+        self.crawling_part(fw)
 

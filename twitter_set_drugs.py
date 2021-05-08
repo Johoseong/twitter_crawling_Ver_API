@@ -2,15 +2,17 @@ import pandas as pd
 
 
 class Drugs:
-    lists = []
+    brandname_lists = []
+    columns = []
 
     def __init__(self):
         df = pd.read_csv("drug_brand.csv")
         data = df.columns
         data = data.tolist()
+        self.columns = data
         for drugname in data:
             brand = self.setFromCsv(df, drugname)
-            self.lists.append(brand)
+            self.brandname_lists.append(brand)
 
     def setFromCsv(self, df, drugname):
         data = df[drugname]
