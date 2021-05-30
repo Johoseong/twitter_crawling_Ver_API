@@ -14,7 +14,7 @@ for i in range(0, 1): #len(drug_brand.columns)):
     print(drug_brand.columns[i] + " done")
 '''
 
-main_crawling.main_act_months(drug_brand.brandname_lists[0], drug_brand.columns[0])
+main_crawling.main_act_months(drug_brand.brandname_lists[0], drug_brand.columns[0], 2016, 2020)
 
 # main_crawling.main_act_indi(drug_brand.brandname_lists[0], drug_brand.columns[0])
 

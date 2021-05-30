@@ -31,9 +31,9 @@ class Crawling:
             raise Exception(response.status_code, response.text)
         return response.json()
 
-    def main_act_months(self, brand_list, drug_name):
-        for year in range(2016, 2021):
-            for month in range(12, 13):
+    def main_act_months(self, brand_list, drug_name, start_year, end_year):
+        for year in range(start_year, end_year + 1):
+            for month in range(2, 13):
                 if month == 13:
                     self.query_params['end_time'] = str(year + 1) + "-" + str(1).zfill(2) + "-01T00:00:00Z"
                     self.query_params['start_time'] = str(year) + "-" + str(month - 1).zfill(2) + "-01T00:00:00Z"
