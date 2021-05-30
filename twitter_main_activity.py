@@ -7,7 +7,10 @@ main_crawling = twitter_crawling_Ver_API.Crawling()
 print(drug_brand.brandname_lists[0])
 print(drug_brand.columns[0])
 
+<<<<<<< HEAD
 '''
+=======
+>>>>>>> b2ba02d93e8d6c50a36404c8ac55c2a1880c32b6
 for i in range(0, 1): #len(drug_brand.columns)):
     print(drug_brand.columns[i] + " start")
     main_crawling.main_act_months(drug_brand.brandname_lists[i], drug_brand.columns[i])
