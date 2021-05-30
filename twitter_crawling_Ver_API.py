@@ -14,11 +14,17 @@ class Crawling:
         # export 'BEARER_TOKEN'='<your_bearer_token>'
         self.bearer_token = "AAAAAAAAAAAAAAAAAAAAAMjyOwEAAAAAYm8zDZ9NMtvCd4K%2FTckEVsozHCA%3Daj3fsQ8Pgmka7tfdzLkeTFcY8jtvZW0hhDps7UFVnsiU1aJhnv"
         self.search_url = "https://api.twitter.com/2/tweets/search/all"
+        self.search_url_from_id = "https://api.twitter.com/2/users/"
 
         # Optional params: start_time,end_time,since_id,until_id,max_results,next_token,
         # expansions,tweet.fields,media.fields,poll.fields,place.fields,user.fields
-        self.query_params = {'query': '', 'tweet.fields': 'created_at', 'start_time': '2016-01-01T00:00:00Z',
+        self.query_params = {'query': '', 'tweet.fields': 'created_at,lang,author_id',
+                             'start_time': '2016-01-01T00:00:00Z',
                              'end_time': '2021-01-01T00:00:00Z', 'max_results': '500'}
+        self.query_params_id = {'tweet.fields': 'created_at,lang,author_id', 'start_time': '2016-01-01T00:00:00Z', 'end_time': '2021-01-01T00:00:00Z',
+                                'max_results': '100'}
+
+        # expansions=author_id&tweet.fields=created_at,author_id,conversation_id,public_metrics,context_annotations&user.fields=username&max_results=5
 
     def create_headers(self):
         headers = {"Authorization": "Bearer {}".format(self.bearer_token)}
@@ -30,6 +36,20 @@ class Crawling:
         if response.status_code != 200:
             raise Exception(response.status_code, response.text)
         return response.json()
+
+    def connect_to_endpoint_id(self, headers):
+        response = requests.request("GET", self.search_url_from_id, headers=headers, params=self.query_params_id)
+        # print(response.status_code)
+        if response.status_code != 200:
+            raise Exception(response.status_code, response.text)
+        return response.json()
+
+    def main_act_id(self, author_id_info, start_time, end_time):
+        fw = open(author_id_info + " " + start_time + "~" + end_time + ".txt", "w")
+        self.search_url_from_id = self.search_url_from_id + author_id_info + "/tweets"
+        self.query_params_id['start_time'] = start_time
+        self.query_params_id['end_time'] = end_time
+        self.crawling_part_id(fw)
 
     def main_act_months(self, brand_list, drug_name, start_year, end_year):
         for year in range(start_year, end_year + 1):
@@ -97,3 +117,21 @@ class Crawling:
             return
         time.sleep(2)
         self.crawling_part(fw)
+
+    def crawling_part_id(self, fw):
+        print(self.query_params_id)
+        headers = self.create_headers()
+        json_response = self.connect_to_endpoint_id(headers)
+        data = json.dumps(json_response, indent=4, sort_keys=True)
+        fw.write(data)
+        try:
+            self.query_params_id['pagination_token'] = json_response['meta']['next_token']
+        except Exception as e:
+            print("done")
+            self.query_params_id['pagination_token'] = "DUMMY"
+            del self.query_params_id['pagination_token']
+            # print(e)
+            time.sleep(2)
+            return
+        time.sleep(2)
+        self.crawling_part_id(fw)
