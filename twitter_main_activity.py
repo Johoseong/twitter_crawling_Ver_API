@@ -4,8 +4,8 @@ import twitter_crawling_Ver_API
 drug_brand = twitter_set_drugs.Drugs()
 main_crawling = twitter_crawling_Ver_API.Crawling()
 
-# print(drug_brand.brandname_lists)
-# print(drug_brand.columns)
+print(drug_brand.brandname_lists[0])
+print(drug_brand.columns[0])
 
 '''
 for i in range(0, 1): #len(drug_brand.columns)):
@@ -14,6 +14,10 @@ for i in range(0, 1): #len(drug_brand.columns)):
     print(drug_brand.columns[i] + " done")
 '''
 
+main_crawling.main_act_months(drug_brand.brandname_lists[0], drug_brand.columns[0])
+
+# main_crawling.main_act_indi(drug_brand.brandname_lists[0], drug_brand.columns[0])
+
 # main_crawling.main_act_weeks(drug_brand.brandname_lists[3], drug_brand.columns[3])
 
-main_crawling.main_act_indi(drug_brand.brandname_lists[3], drug_brand.columns[3])
+# main_crawling.main_act_indi(drug_brand.brandname_lists[3], drug_brand.columns[3])

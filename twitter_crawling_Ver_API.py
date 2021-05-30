@@ -32,8 +32,9 @@ class Crawling:
         return response.json()
 
     def main_act_months(self, brand_list, drug_name):
-        for year in range(2016, 2020):
-            for month in range(2, 14):
+        self.query_params['tweet.fields'] = "lang"
+        for year in range(2019, 2021):
+            for month in range(6, 14):
                 if month == 13:
                     self.query_params['end_time'] = str(year + 1) + "-" + str(1).zfill(2) + "-01T00:00:00Z"
                     self.query_params['start_time'] = str(year) + "-" + str(month - 1).zfill(2) + "-01T00:00:00Z"
@@ -70,8 +71,9 @@ class Crawling:
             self.query_params['start_time'] = str(date) + "T00:00:00Z"
 
     def main_act_indi(self, brand_list, drug_name):
-        self.query_params['start_time'] = "2020-02-29T00:00:00Z"
+        self.query_params['start_time'] = "2020-02-01T00:00:00Z"
         self.query_params['end_time'] = "2020-03-01T00:00:00Z"
+        self.query_params['tweet.fields'] = "lang"
         # main activity
         fw = open(drug_name + " " + self.query_params['start_time'][0:10] + "~" + self.query_params['end_time'][
                                                                                   0:10] + ".txt", "w")
