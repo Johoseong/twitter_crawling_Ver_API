@@ -45,7 +45,7 @@ start_time : (int) ex) 2016
 end_time : (int) ex) 2017
 
 #### ex) main_act_months(brandname_lists, columns, 2016, 2016)
-#### output file name : Baclofen 2016-01-01~2016-02-01.txt ~ Baclofen 2016-12-01~2017-01-01.txt
+#### output file name : Baclofen 2016-01-01~2016-02-01.txt ~~~ Baclofen 2016-12-01~2017-01-01.txt
 #### output data : 
 ~~~
 {
