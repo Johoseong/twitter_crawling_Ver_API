@@ -45,7 +45,7 @@ class Crawling:
         return response.json()
 
     def main_act_id(self, author_id_info, start_time, end_time):
-        fw = open(author_id_info + " " + start_time + "~" + end_time + ".txt", "w")
+        fw = open(author_id_info + " " + start_time[0:10] + "~" + end_time[0:10] + ".txt", "w")
         self.search_url_from_id = self.search_url_from_id + author_id_info + "/tweets"
         self.query_params_id['start_time'] = start_time
         self.query_params_id['end_time'] = end_time
