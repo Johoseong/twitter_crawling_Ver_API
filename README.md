@@ -35,7 +35,7 @@ end_time : (str) YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339) ex) "2017-01-01T00:00:
     }
 }
 ~~~
-==========
+***
 ### main_act_months(self, brand_list, drug_name, start_year, end_year)
 #### input_values
 brand_list : (list) Keywords ex) ['Baclofen', 'Baclospas', 'Balgifen']   
