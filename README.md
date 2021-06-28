@@ -1,6 +1,7 @@
 # twitter_crawling_Ver_API
 
 ## API Usage
+***
 ### main_act_id(self, author_id_info, start_time, end_time)
 #### input_values
 author_id_info : (str) author's id ex) "1061602142"   
