@@ -40,7 +40,9 @@ end_time : (str) YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339) ex) "2017-01-01T00:00:
 #### input_values
 brand_list : (list) Keywords ex) ['Baclofen', 'Baclospas', 'Balgifen']   
 drug_name : (str) output naming ex) Baclofen   
-start_time : (str) YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339) ex) "2016-01-01T00:00:00Z"   
-end_time : (str) YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339) ex) "2017-01-01T00:00:00Z"   
+start_time : (int) ex) 2016
+end_time : (int) ex) 2017
 
-#### outputs (saved as .txt)
+#### ex) main_act_months(brandname_lists, columns, 2016, 2016)
+#### output file name : 1061602142 2016-01-01~2016-01-08.txt ~
+#### output data : 
